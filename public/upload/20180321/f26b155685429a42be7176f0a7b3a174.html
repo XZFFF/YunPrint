@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆界面</title>
+    <script type="text/javascript">
+    function foo(){
+            if(myform.name.value=="")
+            {
+                alert("请输入用户名");
+                myform.name.focus();
+                return false;
+            }
+            if (myform.pwd.value=="")
+            {
+                alert("请输入密码");
+                myform.pwd.focus();
+                return false;
+            }
+            if (myform.yzm.value=="")
+            {
+                alert("请输入验证码");
+                myform.yzm.focus();
+                return false;
+            }
+        }
+    </script>
+    <style type="text/css">
+           body{background-image: url("/images/1.jpg")}
+           .container{
+               width: 380px;
+               height: 330px;
+               margin: 0 auto;margin-top: 240px;
+               box-shadow: 0 0 20px #222;
+               border-radius:40px;
+              background-color: rgba(152, 242, 242, 0.23);
+           }
+        div.right{
+            position: relative;
+            left: 40px;
+            top: 20px;
+        }
+         input{
+             width: 180px;
+             height: 25px;
+         }
+        button{
+            background-color: rgba(230, 228, 236, 0.93); /* Green */
+ border: none;
+            color: #110c0f;
+            padding: 10px 30px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: -40px;
+            margin-left: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<form action="login.php" method="post" onsubmit="return foo();" name="myform" >
+ <div class="container"style="font-size:17px">
+     <div class="right">
+    <h2>用户登陆</h2>
+     <p>
+         用户名:<input type="text" name="username" id="name" placeholder="请输入用户名">
+     </p>
+     <p>
+         密&#12288码:<input type="password" name="password" id="pwd" placeholder="请输入密码" >
+     </p>
+     <p>
+         验证码:<input type="text" name="yzm" id="yzm" placeholder="请输入验证码">
+         <img src="yanzhengma.php" onClick="this.src='yanzhengma.php?nocache='+Math.random()" style="cursor:hand">
+     </p>
+         <p style=" margin-left: 200px"><a href="reg.html">注册</a></p>
+       <p>
+             <button class="button">立即登陆</button>
+       </p>
+   </div>
+ </div>
+</form>
+</body>
+</html>
