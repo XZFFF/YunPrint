@@ -77,11 +77,15 @@ class Upload extends Base
                             'time' => date("Y-m-d H:i:s", time()),
                             'status' => '1' // 0-非公开 1-公开
                             ]);
-                $msg = $result; // 映射关系是否存入数据库
+                if ($result == 1) {
+                    $msg = '上传成功'; // 映射关系是否存入数据库
+                } else {
+                    $msg = '上传失败';
+                }
             } else {
                 // 上传失败获取错误信息 $info->getError()
                 $path = '';
-                $msg = $info->getError();
+                $msg = $info->getError(); // 错误信息
             }
             // 返回数据格式规范化
             $rel[$i]['path'] = $path;

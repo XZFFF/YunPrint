@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-04-03 16:55:00
+-- Generation Time: 2018-04-20 17:21:50
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `yunprint`
 --
-CREATE DATABASE IF NOT EXISTS `yunprint` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `yunprint`;
 
 -- --------------------------------------------------------
 
@@ -36,15 +34,17 @@ CREATE TABLE IF NOT EXISTS `filepath` (
   `time` timestamp NULL DEFAULT NULL COMMENT '上传时间',
   `status` int(1) DEFAULT NULL COMMENT '状态0-非公开 1-公开',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='文件名映射表' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='文件名映射表' AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `filepath`
 --
 
 INSERT INTO `filepath` (`id`, `realname`, `savename`, `author`, `time`, `status`) VALUES
-(1, '2017-2018年度五四评优申报材料清单（附教务处成绩截图模板）.docx', '20180327\\c382d20769f4f0515260343d0e7bad6e.docx', NULL, '2018-03-27 04:51:40', 1),
-(2, '附件7：优秀个人汇总表.xls', '20180327\\a9f30f836493bc26e5024048d1b3ff81.xls', NULL, '2018-03-27 04:51:40', 1);
+(1, '信息化建设项目立项申报书(1).docx', '20180420\\21b1a5015c667968646212b5131cd924.docx', '朱孟岳', '2018-04-20 15:12:18', 1),
+(2, '网络中心宣传部04.14docx.docx', '20180420\\ebb32f8bc55f137f47a25d3bb3e23682.docx', '朱孟岳', '2018-04-20 15:12:18', 1),
+(3, '信息化建设项目立项申报书(1).docx', '20180420\\dd3d7b3e444dbd9b522f0a3df83432dc.docx', '朱孟岳', '2018-04-20 15:17:56', 1),
+(4, '网络中心宣传部04.14docx.docx', '20180420\\122220728e29cd9082cbb55844d24961.docx', '朱孟岳', '2018-04-20 15:17:56', 1);
 
 -- --------------------------------------------------------
 
@@ -57,12 +57,21 @@ CREATE TABLE IF NOT EXISTS `order` (
   `uid` int(11) NOT NULL,
   `sid` int(11) NOT NULL,
   `filenum` int(11) NOT NULL,
-  `filepath` text NOT NULL,
+  `file1id` int(11) NOT NULL,
+  `file2id` int(11) DEFAULT NULL,
+  `file3id` int(11) DEFAULT NULL,
   `status` int(1) NOT NULL COMMENT '0-待接取 1-待完成 2-待领取 3-已完成 9-已取消',
   `createtime` timestamp NOT NULL,
   `finishtime` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `order`
+--
+
+INSERT INTO `order` (`id`, `uid`, `sid`, `filenum`, `file1id`, `file2id`, `file3id`, `status`, `createtime`, `finishtime`) VALUES
+(1, 1, 1, 1, 1, 2, 3, 3, '2018-04-20 14:45:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -93,15 +102,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `realname` varchar(40) NOT NULL,
   `tel` varchar(20) NOT NULL,
   `time` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `realname`, `tel`, `time`) VALUES
-(1, 'xzfff', '123', '谢泽丰', '13125177868', '2018-03-27 00:45:11');
+(1, 'xzfff', '123', '谢泽丰', '13125177868', '2018-03-27 00:45:11'),
+(2, 'zmy', '123', '朱孟岳', '123456', '2018-04-20 13:55:04');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
