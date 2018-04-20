@@ -91,9 +91,9 @@ class Upload extends Base
         }
         // 判断结果数据并返回接口
         if ($rel) {
-            return $this->apireturn(0, 'Success', $rel);
+            return $this->apireturn(0, '上传成功', $rel);
         } else {
-            return $this->apireturn(-2, 'Fail', $rel);
+            return $this->apireturn(-2, '上传失败', $rel);
         }
     }
 }

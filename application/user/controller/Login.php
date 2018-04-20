@@ -9,6 +9,8 @@ namespace app\user\controller;
 
 use think\Controller;
 use think\Db;
+use think\exception\ErrorException;
+use think\exception\PDOException;
 use think\Request;
 use think\Session;
 
@@ -35,15 +37,19 @@ class Login extends Base
         $realname = $request->post('realname');
         $tel = $request->post('tel');
         $time = date("Y-m-d H:i:s", time());
-        $rel = Db::name('user')
-            ->strict(false)
-            ->insert([
-                'username' => $username,
-                'password' => $password,
-                'realname' => $realname,
-                'tel' => $tel,
-                'time' => $time]);
-        $this->apireturn('0', '', $rel);
+        try {
+            $rel = Db::name('user')
+                ->strict(false)
+                ->insert([
+                    'username' => $username,
+                    'password' => $password,
+                    'realname' => $realname,
+                    'tel' => $tel,
+                    'time' => $time]);
+            return $this->apireturn('0', '注册成功', $rel);
+        } catch (PDOException $e) {
+            return $this->apireturn('-1', '注册失败', '');
+        }
     }
 
     /**
@@ -59,10 +65,10 @@ class Login extends Base
             ->where(['username' => $username, 'password' => $password])
             ->find();
         if (empty($rel)) {
-            return $this->apireturn('-1', 'Wrong username or password.', $rel);
+            return $this->apireturn('-1', '用户名或密码错误', $rel);
         } else {
             Session::set('user', $rel);
-            return $this->apireturn('0', 'Success', $rel);
+            return $this->apireturn('0', '登录成功', $rel);
         }
     }
 
