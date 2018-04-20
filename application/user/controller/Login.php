@@ -85,6 +85,9 @@ class Login extends Base
         }
     }
 
+    /**
+     * 注销登录
+     */
     public function dellogin()
     {
         Session::delete('user');

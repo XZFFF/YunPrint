@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-04-20 17:21:50
+-- Generation Time: 2018-04-20 18:55:22
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -76,18 +76,29 @@ INSERT INTO `order` (`id`, `uid`, `sid`, `filenum`, `file1id`, `file2id`, `file3
 -- --------------------------------------------------------
 
 --
--- 表的结构 `shore`
+-- 表的结构 `store`
 --
 
-CREATE TABLE IF NOT EXISTS `shore` (
+CREATE TABLE IF NOT EXISTS `store` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) NOT NULL,
   `password` varchar(40) NOT NULL,
-  `realname` varchar(40) NOT NULL,
+  `storename` varchar(40) NOT NULL,
+  `place` text,
   `tel` varchar(20) NOT NULL,
+  `qq` varchar(20) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0-正常 1-休息',
   `time` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `store`
+--
+
+INSERT INTO `store` (`id`, `username`, `password`, `storename`, `place`, `tel`, `qq`, `status`, `time`) VALUES
+(1, 'store1', '123', '升升C栋打印店', '升升公寓C栋地下室打印店', '1234567', NULL, 0, '2018-04-20 16:40:22');
 
 -- --------------------------------------------------------
 
