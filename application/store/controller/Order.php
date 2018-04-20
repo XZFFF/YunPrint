@@ -18,18 +18,25 @@ class Order extends Base
      */
     public function changestatus(Request $request) {
         // 检测未登录
-        if(empty(Session::has('user'))) {
+        if(empty(Session::has('store'))) {
             redirect('index/login');
         }
-        $sid = $request->post('sid');
-        $status = $request->post('status');
-        $uid = Session::get('store.id');
+        $oid = $request->post('oid');
+        $sid = Session::get('store.id');
+        $theorder = Db::name('order')->where(['id'=>$oid, 'sid'=>$sid])->find();
+        $status = $theorder['status'];
         // 订单状态为 0-待接取 1-待完成 可以更新状态
-        $rel = Db::name('order')->where(['id'=>$oid, 'uid'=>$uid, 'status'=>2])->update(['status' => $status]);
-        if (empty($rel)) {
-            $this->apireturn('-1', '授权错误或无订单状态错误', $rel);
+        if ($status == 0 || $status == 1) {
+            $rel = Db::name('order')
+                ->where(['id'=>$oid, 'sid'=>$sid])
+                ->setInc('status');
+            if (empty($rel)) {
+                return $this->apireturn('-1', '授权错误或无订单状态错误', '');
+            } else {
+                return $this->apireturn('0', '更新状态成功', $rel);
+            }
         } else {
-            $this->apireturn('0', '', $rel);
+            return $this->apireturn('-2', '当前状态无法更新', '');
         }
     }
 }
