@@ -14,7 +14,10 @@ class Order extends Base
     // 订单状态： 0-待接取 1-待完成 2-待领取 3-已完成 9-已取消
 
 
-    //TODO 商户所有订单
+    /**
+     * 商户查看所有订单
+     * @return \think\response\Json
+     */
     public function showorder() {
         $sid = Session::get('store.id');
         try {
