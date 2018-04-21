@@ -18,10 +18,6 @@ class Order extends Base
      * @return \think\response\Json
      */
     public function  showorder() {
-        // 检测未登录
-        if(empty(Session::has('user'))) {
-            redirect('index/login');
-        }
         $uid = Session::get('user.id');
         try {
             $rel = Db::name('order')->where(['uid' => $uid])->select();
@@ -49,10 +45,6 @@ class Order extends Base
      * @param Request $request
      */
     public function createorder(Request $request) {
-        // 检测未登录
-        if(empty(Session::has('user'))) {
-            redirect('index/login');
-        }
         $uid = Session::get('user.id');
         $sid = $request->post('sid');
         $filenum = $request->post('filenum');
@@ -86,10 +78,6 @@ class Order extends Base
      * @param Request $request
      */
     public function cancelorder(Request $request) {
-        // 检测未登录
-        if(empty(Session::has('user'))) {
-            redirect('index/login');
-        }
         $oid = $request->post('oid');
         $uid = Session::get('user.id');
         $info = Db::name('order')->where(['id'=>$oid, 'uid'=>$uid])->find();
@@ -110,10 +98,6 @@ class Order extends Base
      * @param Request $request
      */
     public function isfinish(Request $request) {
-        // 检测未登录
-        if(empty(Session::has('user'))) {
-            redirect('index/login');
-        }
         $oid = $request->post('oid');
 //        $status = $request->post('status');
         $status = 3;

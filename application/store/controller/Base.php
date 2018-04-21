@@ -19,9 +19,10 @@ class Base extends Controller
     {
         ob_clean();
         parent::__construct();
-//        if(empty(Session::has('user'))) {
-//            redirect('index/login');
-//        }
+        // 检测未登录
+        if(empty(Session::has('store'))) {
+            redirect('index/login');
+        }
     }
 
     /**

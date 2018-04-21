@@ -48,10 +48,6 @@ class Upload extends Base
      * @return \think\response\Json
      */
     public function upload(Request $request) {
-        // 检测未登录
-        if(empty(Session::has('user'))) {
-            redirect('index/login');
-        }
         // 获取表单上传文件
         $user_path = ROOT_PATH . 'public' . DS . 'upload';
 //        $yun_psth = ROOT_PATH . 'public' . DS . 'yun';

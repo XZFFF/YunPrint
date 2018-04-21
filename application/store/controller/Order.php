@@ -3,6 +3,7 @@ namespace app\store\controller;
 
 use think\Controller;
 use think\Db;
+use think\exception\PDOException;
 use think\Request;
 use think\Session;
 
@@ -14,6 +15,28 @@ class Order extends Base
 
 
     //TODO 商户所有订单
+    public function showorder() {
+        $sid = Session::get('store.id');
+        try {
+            $rel = Db::name('order')->where(['sid' => $sid])->select();
+            if (!empty($rel)) {
+                foreach ($rel as $key => $value) {
+                    $file1id = $rel[$key]['file1id'];
+                    $rel[$key]['file1info'] = Db::name('filepath')
+                        ->where(['id' => $file1id])->find();
+                    $file2id = $rel[$key]['file2id'];
+                    $rel[$key]['file2info'] = Db::name('filepath')
+                        ->where(['id' => $file2id])->find();
+                    $file3id = $rel[$key]['file3id'];
+                    $rel[$key]['file3info'] = Db::name('filepath')
+                        ->where(['id' => $file3id])->find();
+                }
+            }
+            return $this->apireturn('0', '获取成功', $rel);
+        } catch (PDOException $e) {
+            return $this->apireturn('-1', '获取失败', '');
+        }
+    }
 
 
     /**
@@ -21,10 +44,6 @@ class Order extends Base
      * @param Request $request
      */
     public function changestatus(Request $request) {
-        // 检测未登录
-        if(empty(Session::has('store'))) {
-            redirect('index/login');
-        }
         $oid = $request->post('oid');
         $sid = Session::get('store.id');
         $theorder = Db::name('order')->where(['id'=>$oid, 'sid'=>$sid])->find();

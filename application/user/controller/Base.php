@@ -19,9 +19,9 @@ class Base extends Controller
     {
         ob_clean();
         parent::__construct();
-//        if(empty(Session::has('user'))) {
-//            redirect('index/login');
-//        }
+        if(empty(Session::has('user'))) {
+            redirect('index/login');
+        }
     }
 
     /**
