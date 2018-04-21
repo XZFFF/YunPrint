@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-04-20 18:55:22
+-- Generation Time: 2018-04-21 17:14:42
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   `file1id` int(11) NOT NULL,
   `file2id` int(11) DEFAULT NULL,
   `file3id` int(11) DEFAULT NULL,
+  `remark` text COMMENT '备注',
   `status` int(1) NOT NULL COMMENT '0-待接取 1-待完成 2-待领取 3-已完成 9-已取消',
   `createtime` timestamp NOT NULL,
   `finishtime` timestamp NULL DEFAULT NULL,
@@ -70,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `order` (
 -- 转存表中的数据 `order`
 --
 
-INSERT INTO `order` (`id`, `uid`, `sid`, `filenum`, `file1id`, `file2id`, `file3id`, `status`, `createtime`, `finishtime`) VALUES
-(1, 1, 1, 1, 1, 2, 3, 3, '2018-04-20 14:45:24', NULL);
+INSERT INTO `order` (`id`, `uid`, `sid`, `filenum`, `file1id`, `file2id`, `file3id`, `remark`, `status`, `createtime`, `finishtime`) VALUES
+(1, 1, 1, 1, 1, 2, 3, NULL, 2, '2018-04-20 17:18:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -115,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `user`

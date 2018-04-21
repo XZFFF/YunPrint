@@ -59,6 +59,7 @@ class Order extends Base
         $file1id = $request->post('file1id');// 文件1id
         $file2id = $request->post('file2id');// 文件2id
         $file3id = $request->post('file3id');// 文件3id
+        $remark = $request->post('remark');
         $status = 0;
         $createtime = date("Y-m-d H:i:s", time());
         try {
@@ -71,6 +72,7 @@ class Order extends Base
                     'file1id' => $file1id,
                     'file2id' => $file2id,
                     'file3id' => $file3id,
+                    'remark' => $remark,
                     'status' => $status,
                     'createtime' => $createtime]);
             return $this->apireturn('0', '创建成功', $rel);
