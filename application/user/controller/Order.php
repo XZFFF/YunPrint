@@ -47,10 +47,20 @@ class Order extends Base
     public function createorder(Request $request) {
         $uid = Session::get('user.id');
         $sid = $request->post('sid');
-        $filenum = $request->post('filenum');
+
+        // 文件及配置相关信息
         $file1id = $request->post('file1id');// 文件1id
+        $file1num = empty($request->post('file1num')) ? 1 : $request->post('file1num');//文件数量,至少为1
+        $file1color = empty($request->post('file1color')) ? 0 : $request->post('file1color');//0-黑白 1-彩色
+        $file1style = empty($request->post('file1style')) ? 0 : $request->post('file1style');//0-单面 1-双面
         $file2id = $request->post('file2id');// 文件2id
+        $file2num = empty($request->post('file2num')) ? 1 : $request->post('file2num');//文件数量,至少为1
+        $file2color = empty($request->post('file2color')) ? 0 : $request->post('file2color');//0-黑白 1-彩色
+        $file2style = empty($request->post('file2style')) ? 0 : $request->post('file2style');//0-单面 1-双面
         $file3id = $request->post('file3id');// 文件3id
+        $file3num = empty($request->post('file3num')) ? 1 : $request->post('file3num');//文件数量,至少为1
+        $file3color = empty($request->post('file3color')) ? 0 : $request->post('file3color');//0-黑白 1-彩色
+        $file3style = empty($request->post('file3style')) ? 0 : $request->post('file3style');//0-单面 1-双面
         $remark = $request->post('remark');
         $status = 0;
         $createtime = date("Y-m-d H:i:s", time());
@@ -60,10 +70,18 @@ class Order extends Base
                 ->insert([
                     'uid' => $uid,
                     'sid' => $sid,
-                    'filenum' => $filenum,
                     'file1id' => $file1id,
+                    'file1num' => $file1num,
+                    'file1color' => $file1color,
+                    'file1style' => $file1style,
                     'file2id' => $file2id,
+                    'file2num' => $file2num,
+                    'file2color' => $file2color,
+                    'file2style' => $file2style,
                     'file3id' => $file3id,
+                    'file3num' => $file3num,
+                    'file3color' => $file3color,
+                    'file3style' => $file3style,
                     'remark' => $remark,
                     'status' => $status,
                     'createtime' => $createtime]);

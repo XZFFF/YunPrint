@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-04-21 17:14:42
+-- Generation Time: 2018-04-21 19:26:36
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -56,10 +56,18 @@ CREATE TABLE IF NOT EXISTS `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `sid` int(11) NOT NULL,
-  `filenum` int(11) NOT NULL,
   `file1id` int(11) NOT NULL,
+  `file1num` int(11) NOT NULL DEFAULT '0',
+  `file1color` int(11) NOT NULL DEFAULT '0' COMMENT '0-黑白 1-彩色',
+  `file1style` int(11) NOT NULL DEFAULT '0' COMMENT '0-单面 1-双面',
   `file2id` int(11) DEFAULT NULL,
+  `file2num` int(11) DEFAULT '0',
+  `file2color` int(11) DEFAULT '0',
+  `file2style` int(11) DEFAULT '0',
   `file3id` int(11) DEFAULT NULL,
+  `file3num` int(11) DEFAULT '0',
+  `file3color` int(11) DEFAULT '0',
+  `file3style` int(11) DEFAULT '0',
   `remark` text COMMENT '备注',
   `status` int(1) NOT NULL COMMENT '0-待接取 1-待完成 2-待领取 3-已完成 9-已取消',
   `createtime` timestamp NOT NULL,
@@ -71,8 +79,8 @@ CREATE TABLE IF NOT EXISTS `order` (
 -- 转存表中的数据 `order`
 --
 
-INSERT INTO `order` (`id`, `uid`, `sid`, `filenum`, `file1id`, `file2id`, `file3id`, `remark`, `status`, `createtime`, `finishtime`) VALUES
-(1, 1, 1, 1, 1, 2, 3, NULL, 2, '2018-04-20 17:18:12', NULL);
+INSERT INTO `order` (`id`, `uid`, `sid`, `file1id`, `file1num`, `file1color`, `file1style`, `file2id`, `file2num`, `file2color`, `file2style`, `file3id`, `file3num`, `file3color`, `file3style`, `remark`, `status`, `createtime`, `finishtime`) VALUES
+(1, 1, 1, 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, NULL, 2, '2018-04-20 17:18:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -99,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `store` (
 --
 
 INSERT INTO `store` (`id`, `username`, `password`, `storename`, `place`, `tel`, `qq`, `status`, `time`) VALUES
-(1, 'store1', '123', '升升C栋打印店', '升升公寓C栋地下室打印店', '1234567', NULL, 0, '2018-04-20 16:40:22');
+(1, 'store1', '123', '升升C栋打印店', '升升公寓C栋地下室打印店', '13678391043', '1231543142', 0, '2018-04-20 16:40:22');
 
 -- --------------------------------------------------------
 
