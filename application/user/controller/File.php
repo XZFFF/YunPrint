@@ -34,5 +34,17 @@ class File extends Base
         }
     }
 
-//    public function changestatus()
+    public function ispublic(Request $request) {
+        $fid = $request->post('fid');
+        // 默认非公开
+        $status = empty($request->post('status'))?0:$request->post('status');
+        try {
+            $rel = Db::name('filepath')
+                ->where(['id'=>$fid])
+                ->update(['status' => $status]);
+            return $this->apireturn('0', '修改成功', $rel);
+        } catch (PDOException $e) {
+            return $this->apireturn('-1', '修改失败', '');
+        }
+    }
 }
