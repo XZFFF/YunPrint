@@ -61,7 +61,7 @@ class Upload extends Base
             if (empty($file)) {
                 continue;
             }
-            $realname = $file->getInfo('name');
+            $filename = $file->getInfo('name');
             $info = $file->move($user_path);
             //$info->getExtension();//文件类型 JPG
             if ($info) {
@@ -69,7 +69,7 @@ class Upload extends Base
                 $path = $user_path . str_replace("\\", "/", $info->getSaveName());
                 $result = Db::name('filepath')->strict(false)
                         ->insert([
-                            'realname' => $realname,
+                            'filename' => $filename,
                             'savename' => $info->getSaveName(),
                             'author' => Session::get('user.realname'),
                             'time' => date("Y-m-d H:i:s", time()),
@@ -91,7 +91,7 @@ class Upload extends Base
             $rel[$i]['fileid'] = $fileid;
             $rel[$i]['path'] = $path;
             $rel[$i]['msg'] = $msg;
-            $rel[$i]['realname'] = $realname;
+            $rel[$i]['filename'] = $filename;
             $i = $i+1;
         }
         // 判断结果数据并返回接口
