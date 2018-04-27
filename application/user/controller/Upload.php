@@ -7,7 +7,9 @@
  */
 
 namespace app\user\controller;
-
+header('Access-Control-Allow-Origin:*');
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header("Access-Control-Allow-Credentials: true");
 use think\Db;
 use think\Exception;
 use think\Request;
@@ -78,12 +80,15 @@ class Upload extends Base
                 } else {
                     $msg = '上传失败';
                 }
+                $fileid = Db::name('filepath')->getLastInsID();
             } else {
                 // 上传失败获取错误信息 $info->getError()
+                $fileid = '';
                 $path = '';
                 $msg = $info->getError(); // 错误信息
             }
             // 返回数据格式规范化
+            $rel[$i]['fileid'] = $fileid;
             $rel[$i]['path'] = $path;
             $rel[$i]['msg'] = $msg;
             $rel[$i]['realname'] = $realname;
