@@ -7,7 +7,7 @@
  */
 
 namespace app\user\controller;
-header('Access-Control-Allow-Origin:*');
+header("Access-Control-Allow-Origin:localhost:8000");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header("Access-Control-Allow-Credentials: true");
 use think\Db;
