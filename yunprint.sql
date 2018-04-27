@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-04-21 19:26:36
+-- Generation Time: 2018-04-27 19:33:13
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -28,23 +28,24 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `filepath` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `realname` varchar(200) NOT NULL,
+  `filename` varchar(200) NOT NULL,
   `savename` varchar(200) NOT NULL,
   `author` varchar(80) DEFAULT NULL,
   `time` timestamp NULL DEFAULT NULL COMMENT '上传时间',
   `status` int(1) DEFAULT NULL COMMENT '状态0-非公开 1-公开',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='文件名映射表' AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='文件名映射表' AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `filepath`
 --
 
-INSERT INTO `filepath` (`id`, `realname`, `savename`, `author`, `time`, `status`) VALUES
+INSERT INTO `filepath` (`id`, `filename`, `savename`, `author`, `time`, `status`) VALUES
 (1, '信息化建设项目立项申报书(1).docx', '20180420\\21b1a5015c667968646212b5131cd924.docx', '朱孟岳', '2018-04-20 15:12:18', 1),
-(2, '网络中心宣传部04.14docx.docx', '20180420\\ebb32f8bc55f137f47a25d3bb3e23682.docx', '朱孟岳', '2018-04-20 15:12:18', 1),
+(2, '网络中心宣传部04.14docx.docx', '20180420\\ebb32f8bc55f137f47a25d3bb3e23682.docx', '朱孟岳', '2018-04-20 15:12:18', 0),
 (3, '信息化建设项目立项申报书(1).docx', '20180420\\dd3d7b3e444dbd9b522f0a3df83432dc.docx', '朱孟岳', '2018-04-20 15:17:56', 1),
-(4, '网络中心宣传部04.14docx.docx', '20180420\\122220728e29cd9082cbb55844d24961.docx', '朱孟岳', '2018-04-20 15:17:56', 1);
+(4, '网络中心宣传部04.14docx.docx', '20180420\\122220728e29cd9082cbb55844d24961.docx', '朱孟岳', '2018-04-20 15:17:56', 1),
+(5, '2018上学期值班表1.5.docx', '20180427\\e1f8c73dafafc7bc9aae563ec50354ab.docx', NULL, '2018-04-27 07:31:51', 1);
 
 -- --------------------------------------------------------
 
