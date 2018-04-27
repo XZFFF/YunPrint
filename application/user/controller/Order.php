@@ -130,4 +130,19 @@ class Order extends Base
             return $this->apireturn('0', '订单完成', $rel);
         }
     }
+
+    /**
+     * 获取所有店家信息
+     * @return \think\response\Json
+     */
+    public function showstore() {
+        try {
+            // 0-正常 1-休息
+            $rel = Db::name('store')->field('id, storename, place')
+                ->where(['status' => 0])->select();
+            return $this->apireturn('0', '获取成功', $rel);
+        } catch (PDOException $e) {
+            return $this->apireturn('-1', '获取失败', '');
+        }
+    }
 }

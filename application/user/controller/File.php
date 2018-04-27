@@ -48,12 +48,13 @@ class File extends Base
      * @return \think\response\Json
      */
     public function ispublic(Request $request) {
+        $realname = Session::get('user.realname');
         $fid = $request->post('fid');
         // 默认非公开
         $status = empty($request->post('status'))?0:$request->post('status');
         try {
             $rel = Db::name('filepath')
-                ->where(['id'=>$fid])
+                ->where(['id'=>$fid, 'author'=>$realname])
                 ->update(['status' => $status]);
             return $this->apireturn('0', '修改成功', $rel);
         } catch (PDOException $e) {

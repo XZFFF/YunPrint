@@ -73,7 +73,7 @@ class Upload extends Base
                             'savename' => $info->getSaveName(),
                             'author' => Session::get('user.realname'),
                             'time' => date("Y-m-d H:i:s", time()),
-                            'status' => '1' // 0-非公开 1-公开
+                            'status' => '0' // 0-非公开 1-公开
                             ]);
                 if ($result == 1) {
                     $msg = '上传成功'; // 映射关系是否存入数据库
