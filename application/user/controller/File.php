@@ -15,6 +15,10 @@ use think\Request;
 use think\Session;
 class File extends Base
 {
+    /**
+     * 获取个人文件库
+     * @return \think\response\Json
+     */
     public function getmyfile() {
         $realname = Session::get('user.realname');
         try {
@@ -25,6 +29,10 @@ class File extends Base
         }
     }
 
+    /**
+     * 获取公开文件库
+     * @return \think\response\Json
+     */
     public function getpublicfile() {
         try {
             $rel = Db::name('filepath')->where(['status' => 1])->select();
@@ -34,6 +42,11 @@ class File extends Base
         }
     }
 
+    /**
+     * 更新文件公开状态 0-非公开 1-公开
+     * @param Request $request
+     * @return \think\response\Json
+     */
     public function ispublic(Request $request) {
         $fid = $request->post('fid');
         // 默认非公开
