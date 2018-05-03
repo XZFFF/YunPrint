@@ -95,4 +95,41 @@ class Login extends Base
         Session::delete('user');
     }
 
+    /**
+     * 获取用户个人信息
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function userinfo(Request $request)
+    {
+        $uid = Session::get('user.id');
+        try {
+            $rel = Db::name('user')->where(['id' => $uid])->find();
+            return $this->apireturn('0', '获取成功', $rel);
+        } catch (PDOException $e) {
+            return $this->apireturn('-1', '获取失败', '');
+        }
+    }
+
+    /**
+     * 修改用户个人信息
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function editinfo(Request $request)
+    {
+        $uid = Session::get('user.id');
+        $info = Db::name('user')->where(['id' => $uid])->find();
+        $password = empty($request->post('password'))?$info['password']:$request->post('password');
+        $realname = empty($request->post('realname'))?$info['realname']:$request->post('realname');
+        $tel = empty($request->post('tel'))?$info['tel']:$request->post('tel');
+        try {
+            $rel = Db::name('user')->where(['id' => $uid])
+                ->update(['password'=>$password, 'realname'=>$realname, 'tel'=>$tel]);
+            return $this->apireturn('0', '修改成功', $rel);
+        } catch (PDOException $e) {
+            return $this->apireturn('-1', '修改失败', '');
+        }
+    }
+
 }
