@@ -13,7 +13,7 @@ class Order extends Base
 {
     /****************** 商户发起的 ******************/
 
-    // 订单状态： 0-待接取 1-待完成 2-待领取 3-已完成 9-已取消
+    // 订单状态： 0-待接取 1-待完成 2-待领取 3-已完成 8-拒绝订单 9-已取消
 
 
     /**
@@ -65,6 +65,28 @@ class Order extends Base
             }
         } else {
             return $this->apireturn('-2', '当前状态无法更新', '');
+        }
+    }
+
+    /**
+     * 商户拒绝订单
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function cancelorder(Request $request) {
+        $oid = $request->post('oid');
+        $sid = Session::get('store.id');
+        $info = Db::name('order')->where(['id'=>$oid, 'sid'=>$sid])->find();
+        if (empty($info)) {
+            return $this->apireturn('-1', '授权错误或无指定订单信息', $info);
+        }
+        // 订单状态为 0-待接取
+        if ($info['status'] == 0) {
+            $rel = Db::name('order')
+                ->where(['id'=>$oid, 'sid'=>$sid])->update(['status' => 8]);
+            return $this->apireturn('0', '已成功拒绝订单', $rel);
+        } else {
+            return $this->apireturn('-2', '订单当前状态无法拒绝', $info);
         }
     }
 }

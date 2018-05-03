@@ -44,6 +44,16 @@ class Upload extends Base
         }
     }
 
+
+    /**
+     * 上传测试接口
+     * @param Request $request
+     */
+    public function uploadtest(Request $request) {
+        $file = $request->file('file');
+        echo json_encode($file);
+    }
+
     /**
      * 上传多图（多图）
      * @param Request $request
