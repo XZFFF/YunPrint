@@ -38,5 +38,21 @@ class Mine extends Base
         }
     }
 
+    /**
+     * 修改商户信息
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function storeinfo(Request $request)
+    {
+        $sid = Session::get('store.id');
+        try {
+            $rel = Db::name('store')->where(['id' => $sid])->find();
+            return $this->apireturn('0', '获取成功', $rel);
+        } catch (PDOException $e) {
+            return $this->apireturn('-1', '获取失败', '');
+        }
+    }
+
 }
 
