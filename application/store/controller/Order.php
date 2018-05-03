@@ -26,6 +26,10 @@ class Order extends Base
             $rel = Db::name('order')->where(['sid' => $sid])->select();
             if (!empty($rel)) {
                 foreach ($rel as $key => $value) {
+                    $uid = $rel[$key]['uid'];
+                    $rel[$key]['userinfo'] = Db::name('user')
+                        ->field('id, username, realname, tel')
+                        ->where(['id' => $uid])->find();
                     $file1id = $rel[$key]['file1id'];
                     $rel[$key]['file1info'] = Db::name('filepath')
                         ->where(['id' => $file1id])->find();
